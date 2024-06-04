@@ -1,2 +1,2 @@
 # ansible-config-mgt
-This is an ansible configuration management repository.
+This is an ansible configuration management repository
