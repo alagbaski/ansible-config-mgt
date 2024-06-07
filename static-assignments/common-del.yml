@@ -1,61 +1,25 @@
-# ---
-# - name: update web, nfs servers
-#   hosts: webservers, nfs
-#   remote_user: ec2-user
-#   become: yes
-#   become_user: root
-#   tasks:
-#   - name: delete wireshark
-#     yum:
-#       name: wireshark
-#       state: removed
-
-# - name: update LB, DB server
-#   hosts: lb, db
-#   remote_user: ubuntu
-#   become: yes
-#   become_user: root
-#   tasks:
-#   - name: delete wireshark
-#     apt:
-#       name: wireshark-qt
-#       state: absent
-#       autoremove: yes
-#       purge: yes
-#       autoclean: yes
-
 ---
-- name: Remove Wireshark from web and nfs servers
+- name: update web, nfs servers
   hosts: webservers, nfs
   remote_user: ec2-user
   become: yes
   become_user: root
   tasks:
-    - name: Remove Wireshark
-      yum:
-        name: wireshark
-        state: absent
+  - name: delete wireshark
+    yum:
+      name: wireshark
+      state: removed
 
-- name: Remove Wireshark from LB and DB servers
+- name: update LB, DB server
   hosts: lb, db
   remote_user: ubuntu
   become: yes
   become_user: root
   tasks:
-    - name: Remove Wireshark and related packages
-      apt:
-        name: "{{ item }}"
-        state: absent
-        purge: yes
-      with_items:
-        - wireshark
-        - wireshark-qt
-        - wireshark-common
-      ignore_errors: yes
-
-    - name: Autoremove any unneeded packages
-      apt:
-        name: "*"
-        state: latest
-        autoremove: yes
-        autoclean: yes
+  - name: delete wireshark
+    apt:
+      name: wireshark
+      state: absent
+      autoremove: yes
+      purge: yes
+      autoclean: yes
