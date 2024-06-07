@@ -15,12 +15,12 @@
   become: true
   git:
     repo: https://github.com/alagbaski/tooling.git
-    dest: /var/www/html
+    dest: /home/ec2-user/
     force: yes
 
 - name: copy html content to one level up
   become: true
-  command: cp -r /var/www/html/html/ /var/www/
+  command: cp -r /tooling/html/ /var/www/
 
 - name: start service httpd, if not started
   become: true
@@ -28,8 +28,8 @@
     name: httpd
     state: started
 
-- name: recursively remove /var/www/html/html/ directory
+- name: recursively remove /tooling directory
   become: true
   file:
-    path: /var/www/html/html
+    path: /home/ec2-user/tooling
     state: absent
