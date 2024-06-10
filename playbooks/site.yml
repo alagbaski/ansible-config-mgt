@@ -9,8 +9,8 @@
 - name: Include dynamic variables
   hosts: all
   tasks:
-    - include_vars:
-        file: "../dynamic-assignments/env-vars.yml"
+    - name: I nclude enviroment variables
+    - import_playbook: "../dynamic-assignments/env-vars.yml"
   tags:
     - always
 
