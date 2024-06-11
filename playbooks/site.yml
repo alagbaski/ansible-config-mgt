@@ -15,15 +15,15 @@
 
 - name: Common configuration
 - hosts: all
-  import_playbook: ../static-assignments/common.yml
+- import_playbook: ../static-assignments/common.yml
 
 - name: Webserver assignment
 - hosts: uat-webservers
-  import_playbook: ../static-assignments/uat-webservers.yml
+- import_playbook: ../static-assignments/uat-webservers.yml
 
 - name: Loadbalancers assignment
 - hosts: lb
-  import_playbook: ../static-assignments/loadbalancers.yml
+- import_playbook: ../static-assignments/loadbalancers.yml
   when: load_balancer_is_required
 
 - name: Database servers
