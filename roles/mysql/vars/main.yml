@@ -1,0 +1,11 @@
+---
+mysql_root_password:
+mysql_databases:
+  - name: tooling
+    encoding: latin1
+    collation: latin1_general_ci
+mysql_users:
+  - name: webaccess
+    host: "172.31.44.29"
+    password: password
+    priv: "tooling.*:ALL"
