@@ -13,8 +13,12 @@
       tags:
         - always
 
+- name: Common configuration
+- hosts: all
 - import_playbook: ../static-assignments/common.yml
 
+- name: Webserver assignment
+- hosts: uat-webservers
 - import_playbook: ../static-assignments/uat-webservers.yml
 
 - name: Loadbalancers assignment
@@ -22,6 +26,7 @@
 - import_playbook: ../static-assignments/loadbalancers.yml
   when: load_balancer_is_required
 
+- name: Database servers
 - hosts: db-servers
   become: yes
   roles:
