@@ -15,7 +15,7 @@
 
 - import_playbook: ../static-assignments/common.yml
 
-- import_playbook: ../static-assignments/webservers.yml
+- import_playbook: ../static-assignments/uat-webservers.yml
 
 - hosts: lb
   name: Loadbalancers assignment
