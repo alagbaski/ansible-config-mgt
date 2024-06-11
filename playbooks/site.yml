@@ -8,7 +8,8 @@
 ---
 - name: Include dynamic variables
   hosts: all
-    - import_playbook: "../dynamic-assignments/env-vars.yml"
+  tasks:
+  - import_playbook: "../dynamic-assignments/env-vars.yml"
   tags:
     - always
 
