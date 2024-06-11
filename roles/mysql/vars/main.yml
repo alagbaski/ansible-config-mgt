@@ -5,7 +5,13 @@ mysql_databases:
     encoding: latin1
     collation: latin1_general_ci
 mysql_users:
-  - name: webaccess
-    host: "172.31.44.29"
-    password: password
+  - name: admin
+    host: "mysql.tooling.svc.cluster.local"
+    password: admin
     priv: "tooling.*:ALL"
+
+# ---
+# mysql_root_password: ""
+# mysql_user: "admin"
+# mysql_password: "admin"
+# mysql_database: "tooling"
