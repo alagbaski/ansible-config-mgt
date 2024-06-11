@@ -27,7 +27,7 @@
   when: load_balancer_is_required
 
 - name: Database servers
-- hosts: db-servers
+  hosts: db
   become: yes
   roles:
     - mysql
