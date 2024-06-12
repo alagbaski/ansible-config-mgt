@@ -22,4 +22,4 @@
 
 - name: Load balancer Tasks
   ansible.builtin.import_playbook: ../static-assignments/loadbalancers.yml
-  when: load_balancer_is_true
+  when: load_balancer_is_required
