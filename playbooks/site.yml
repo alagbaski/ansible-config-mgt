@@ -6,21 +6,24 @@
 # - import_playbook: ../static-assignments/uat-webservers.yml
 
 ---
-- hosts: all
-  name: Include dynamic variables
+- name: Include dynamic variables
+  hosts: all
   become: yes
   tasks:
-    - include_tasks: ../dynamic-assignments/env-vars.yml
+    - include_vars: ../dynamic-assignments/env-vars.yml
       tags:
         - always
 
-- hosts: mysql_servers
-  become: yes
-  roles:
-    - mysql
+# - hosts: mysql_servers
+#   become: yes
+#   roles:
+#     - mysql
 
-- import_playbook: ../static-assignments/common.yml
+# - import_playbook: ../static-assignments/common.yml
 
-- import_playbook: ../static-assignments/uat-webservers.yml
+- name: Webservers Tasks
+  ansible_builtin.import_playbook: ../static-assignments/uat-webservers.yml
 
-- import_playbook: ../static-assignments/loadbalancers.yml
+- name:
+  ansible.builtin.import_playbook: ../static-assignments/loadbalancers.yml
+  when: load_balancer_is_true
