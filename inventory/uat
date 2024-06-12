@@ -5,3 +5,5 @@
 [db-server]
 172.31.34.251 ansible_ssh_user='ubuntu'
 
+[lb]
+172.31.44.160 ansible_ssh_user='ubuntu'
