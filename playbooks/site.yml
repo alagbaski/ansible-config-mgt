@@ -14,12 +14,8 @@
       tags:
         - always
 
-# - hosts: mysql_servers
-#   become: yes
-#   roles:
-#     - mysql
-
-# - import_playbook: ../static-assignments/common.yml
+- name: dbserver assignment
+  ansible.builtin.import_playbook: "../static-assignments/db-servers.yml"
 
 - name: Webservers Tasks
   ansible.builtin.import_playbook: ../static-assignments/uat-webservers.yml
