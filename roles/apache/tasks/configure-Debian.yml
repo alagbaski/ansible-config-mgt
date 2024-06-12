@@ -74,19 +74,35 @@
 #   notify: restart apache
 #   when: apache_remove_default_vhost
 
-- name: Add load balancer settings to Apache vhosts configuration
+# - name: Add load balancer settings to Apache vhosts configuration
+#   ansible.builtin.blockinfile:
+#     path: "{{ apache_conf_path }}/sites-available/{{ apache_vhosts_filename }}"
+#     marker: "# {mark} ANSIBLE MANAGED BLOCK - DO NOT EDIT"
+#     block: |
+#       <Proxy "balancer://mycluster">
+#          BalancerMember http://172.31.41.207:80 loadfactor=5 timeout=1
+#          BalancerMember http://172.31.43.146:80 loadfactor=5 timeout=1
+#          ProxySet lbmethod=byrequests
+#       </Proxy>
+#       ProxyPass "/" "balancer://mycluster/"
+#       ProxyPassReverse "/" "balancer://mycluster/"
+#     insertbefore: "</VirtualHost>"
+#   notify: restart apache
+#   become: yes
+#   ignore_errors: yes
+
+- name: Insert load balancer configuration into Apache virtual host
   ansible.builtin.blockinfile:
-    path: "{{ apache_conf_path }}/sites-available/{{ apache_vhosts_filename }}"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - DO NOT EDIT"
+    path: /etc/apache2/sites-available/000-default.conf
     block: |
       <Proxy "balancer://mycluster">
-         BalancerMember http://172.31.41.207:80 loadfactor=5 timeout=1
-         BalancerMember http://172.31.43.146:80 loadfactor=5 timeout=1
-         ProxySet lbmethod=byrequests
+        BalancerMember http://172.31.41.207:80 loadfactor=5 timeout=1
+        BalancerMember http://172.31.43.146:80 loadfactor=5 timeout=1
+        ProxySet lbmethod=byrequests
       </Proxy>
       ProxyPass "/" "balancer://mycluster/"
       ProxyPassReverse "/" "balancer://mycluster/"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
     insertbefore: "</VirtualHost>"
   notify: restart apache
   become: yes
-  ignore_errors: yes
