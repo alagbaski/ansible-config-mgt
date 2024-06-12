@@ -17,6 +17,19 @@
     state: link
     mode: 0644
   with_items: "{{ apache_mods_enabled }}"
+  notify: restart 
+  become: yes
+
+- name: Enable Apache modules
+  ansible.builtin.shell:
+    cmd: "a2enmod {{ item }}"
+  loop:
+    - rewrite
+    - proxy
+    - proxy_balancer
+    - proxy_http
+    - headers
+    - lbmethod_byrequests
   notify: restart apache
   become: yes
 
@@ -67,7 +80,8 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK - DO NOT EDIT"
     block: |
       <Proxy "balancer://mycluster">
-         BalancerMember 172.31.92.49
+         BalancerMember http://172.31.41.207:80 loadfactor=5 timeout=1
+         BalancerMember http://172.31.43.146:80 loadfactor=5 timeout=1
          ProxySet lbmethod=byrequests
       </Proxy>
       ProxyPass "/" "balancer://mycluster/"
