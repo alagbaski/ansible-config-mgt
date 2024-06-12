@@ -45,11 +45,11 @@
     mode: 0644
   notify:
     - reload nginx
-    become: yes
+  become: yes
 
 - name: Ensure nginx service is running as configured.
   service:
     name: nginx
     state: "{{ nginx_service_state }}"
     enabled: "{{ nginx_service_enabled }}"
-    become: yes
+  become: yes
