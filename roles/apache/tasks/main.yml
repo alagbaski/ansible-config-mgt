@@ -20,8 +20,8 @@
 # Figure out what version of Apache is installed.
 - name: Get installed version of Apache.
   command: "{{ apache_daemon_path }}{{ apache_daemon }} -v"
-  changed_when: false
-  check_mode: false
+  changed_when: true
+  check_mode: true
   register: _apache_version
 
 - name: Create apache_version variable.
