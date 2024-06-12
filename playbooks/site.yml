@@ -22,7 +22,7 @@
 # - import_playbook: ../static-assignments/common.yml
 
 - name: Webservers Tasks
-  ansible_builtin.import_playbook: ../static-assignments/uat-webservers.yml
+  ansible.builtin.import_playbook: ../static-assignments/uat-webservers.yml
 
 - name:
   ansible.builtin.import_playbook: ../static-assignments/loadbalancers.yml
