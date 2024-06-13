@@ -9,9 +9,3 @@ mysql_users:
     host: "172.31.32.0/20"
     password: admin
     priv: "tooling.*:ALL"
-
-# ---
-# mysql_root_password: ""
-# mysql_user: "admin"
-# mysql_password: "admin"
-# mysql_database: "tooling"
