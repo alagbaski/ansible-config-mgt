@@ -14,11 +14,11 @@
       tags:
         - always
 
-- name: dbserver assignment
-  ansible.builtin.import_playbook: ../static-assignments/db-server.yml
+# - name: dbserver assignment
+#   ansible.builtin.import_playbook: ../static-assignments/db-server.yml
 
-- name: Webservers Tasks
-  ansible.builtin.import_playbook: ../static-assignments/uat-webservers.yml
+# - name: Webservers Tasks
+#   ansible.builtin.import_playbook: ../static-assignments/uat-webservers.yml
 
 - name: Load balancer Tasks
   ansible.builtin.import_playbook: ../static-assignments/loadbalancers.yml
