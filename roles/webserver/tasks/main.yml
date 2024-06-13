@@ -116,3 +116,10 @@
   ansible.builtin.file:
     path: /var/www/html/html
     state: absent
+
+- name: Set SELinux boolean for httpd_can_network_connect
+  remote_user: ec2-user
+  become: true
+  become_user: root
+  ansible.builtin.command:
+    cmd: sudo setsebool -P httpd_can_network_connect=1
