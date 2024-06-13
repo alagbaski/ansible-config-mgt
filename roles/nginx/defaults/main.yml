@@ -64,16 +64,17 @@ nginx_remove_default_vhost: false
 # Listen on IPv6 (default: true)
 nginx_listen_ipv6: true
 
+#Example vhost below, showing all available options
 nginx_vhosts:
-Example vhost below, showing all available options:
   - listen: "80" # default: "80"
     server_name: "domain.com" # default: N/A
+    server_name_redirect: "www.domain.com"
     root: "/var/www/html" # default: N/A
     index: "index.php index.html index.htm" # default: "index.html index.htm"
     filename: "/etc/nginx/nginx.conf" # Can be used to set the vhost filename.
 
     # Properties that are only added if defined:
-    server_name_redirect: "www.example.com" # default: N/A
+    server_name_redirect: "www.domain.com" # default: N/A
     error_page: ""
     access_log: ""
     error_log: ""
