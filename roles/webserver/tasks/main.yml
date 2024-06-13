@@ -55,6 +55,14 @@
       - php-mysqlnd
     state: present
 
+- name: Install MySQL client
+  remote_user: ec2-user
+  become: true
+  become_user: root
+  ansible.builtin.yum:
+    name: "mysql"
+    state: present
+
 - name: Start PHP-FPM service
   remote_user: ec2-user
   become: true
