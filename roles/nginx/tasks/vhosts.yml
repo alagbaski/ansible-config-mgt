@@ -5,6 +5,7 @@
     state: absent
   when: nginx_remove_default_vhost | bool
   notify: restart nginx
+  become: true
 
 - name: Ensure nginx_vhost_path exists.
   file:
@@ -12,6 +13,7 @@
     state: directory
     mode: 0755
   notify: reload nginx
+  become: true
 
 - name: Add managed vhost config files.
   template:
@@ -26,6 +28,7 @@
   notify: reload nginx
   tags:
     - skip_ansible_lint
+  become: true
 
 - name: Remove managed vhost config files.
   file:
@@ -36,9 +39,11 @@
   notify: reload nginx
   tags:
     - skip_ansible_lint
+  become: true
 
 - name: Remove legacy vhosts.conf file.
   file:
     path: "{{ nginx_vhost_path }}/vhosts.conf"
     state: absent
   notify: reload nginx
+  become: true
