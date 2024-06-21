@@ -31,6 +31,6 @@
 #     - loadbalancer
 
 - name: JFrog Artifactory
-  ansible.builtin.import_playbook: ../static-assignments/artifact.yml
+  import_playbook: ../static-assignments/artifact.yml
   tags:
     - artifactory
