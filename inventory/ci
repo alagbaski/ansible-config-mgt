@@ -7,5 +7,5 @@
 [sonarqube]
 <SonarQube-Private-IP-Address> -->
 
-[artifact]
+[artifactory]
 172.31.36.231 ansible_ssh_user=ubuntu
