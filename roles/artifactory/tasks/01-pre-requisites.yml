@@ -16,12 +16,12 @@
     state: present
   become: yes
 
-- name: Stop linux service
-  tags: service
-  service:
-    name: "{{ artifactory_os_service_name }}"
-    state: stopped
-  ignore_errors: yes
+# - name: Stop linux service
+#   tags: service
+#   service:
+#     name: "{{ artifactory_os_service_name }}"
+#     state: stopped
+#   ignore_errors: yes
 
 
 - name: Get rid of old Artifactory configuration

@@ -17,18 +17,18 @@
     recurse: yes
   become: yes
 
-- name: Download and unarchive Artifactory distr
-  tags: distr
-  unarchive:
-    creates: "{{ artifactory_home_full }}" # Skip download and unzip if already done
-    src: "{{ artifactory_url }}"
-    dest: "{{ jfrog_home }}"
-    owner: "{{ artifactory_os_user_name }}"
-    group: "{{ artifactory_os_user_name }}"
-    validate_certs: no
-    copy: no
-  retries: 3
-  become: yes
+# - name: Download and unarchive Artifactory distr
+#   tags: distr
+#   unarchive:
+#     creates: "{{ artifactory_home_full }}" # Skip download and unzip if already done
+#     src: "{{ artifactory_url }}"
+#     dest: "{{ jfrog_home }}"
+#     owner: "{{ artifactory_os_user_name }}"
+#     group: "{{ artifactory_os_user_name }}"
+#     validate_certs: no
+#     copy: no
+#   retries: 3
+#   become: yes
 
 - name: Make Artifactory home link
   tags: distr
