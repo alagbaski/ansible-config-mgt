@@ -60,7 +60,6 @@ parameters {
                         installation: 'ansible',
                         inventory: "${WORKSPACE}/${inventory}",
                         playbook: "${WORKSPACE}/playbooks/site.yml"
-                        tags: "${params.ansible_tags}"
                     )
                 }
             }
