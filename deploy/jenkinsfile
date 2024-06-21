@@ -58,7 +58,7 @@ parameters {
                         credentialsId: 'private-key',
                         disableHostKeyChecking: true,
                         installation: 'ansible',
-                        inventory: "${WORKSPACE}/${inventory}",
+                        inventory: "${WORKSPACE}/inventory/${inventory}.yml",
                         playbook: "${WORKSPACE}/playbooks/site.yml",
                         tags: "${ansible_tags}"
                     )
