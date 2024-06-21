@@ -5,6 +5,7 @@
   user:
     name: "{{ artifactory_os_user_name }}"
     create_home: no
+  become: yes
 
 - name: Create JFROG_HOME folder
   tags: env
@@ -14,6 +15,7 @@
     owner: "{{ artifactory_os_user_name }}"
     group: "{{ artifactory_os_user_name }}"
     recurse: yes
+  become: yes
 
 - name: Download and unarchive Artifactory distr
   tags: distr
@@ -26,6 +28,7 @@
     validate_certs: no
     copy: no
   retries: 3
+  become: yes
 
 - name: Make Artifactory home link
   tags: distr
@@ -35,6 +38,7 @@
     owner: "{{ artifactory_os_user_name }}"
     group: "{{ artifactory_os_user_name }}"
     state: link
+  become: yes
 
 - name: Persist JFROG_HOME environment variable
   tags: env
@@ -42,6 +46,7 @@
     path: '/etc/environment'
     line: "JFROG_HOME={{ jfrog_home }}"
     create: yes
+  become: yes
 
 - name: Persist ARTIFACTORY_HOME environment variable
   tags: env
@@ -49,3 +54,4 @@
     path: '/etc/environment'
     line: "ARTIFACTORY_HOME={{ artifactory_home }}"
     create: yes
+  become: yes

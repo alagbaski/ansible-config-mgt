@@ -6,3 +6,4 @@
     name: "{{ artifactory_os_service_name }}"
     state: restarted
     sleep: 5
+  become: yes

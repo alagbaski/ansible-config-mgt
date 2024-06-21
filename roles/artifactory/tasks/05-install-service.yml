@@ -8,6 +8,7 @@
     owner: "{{ artifactory_os_user_name }}"
     group: "{{ artifactory_os_user_name }}"
     mode: u=rwx,g=rx,o=rx
+  become: yes
 
 - name: Set up Artifactory access to linux log directory
   tags: service
@@ -17,8 +18,10 @@
     owner: "{{ artifactory_os_user_name }}"
     group: "{{ artifactory_os_user_name }}"
     mode: u=rw,g=rw,o=r
+  become: yes
 
 - name: Register Artifactory linux service
   tags: service
   command: "update-rc.d {{ artifactory_os_service_name }} defaults"
   notify: Restart Artifactory linux service
+  become: yes

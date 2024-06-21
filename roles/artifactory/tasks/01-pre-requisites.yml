@@ -7,13 +7,14 @@
       - ansible_processor_vcpus >= 1 # Virtual CPU cores.
       - ansible_memfree_mb >= 1024 # Free RAM mb for comfort Artifactory experience
       - ((ansible_mounts|first).size_available|float / 1000000000) >= 1 # Free disk Gb for Artifactory installation and metadata.
+  become: yes
 
 - name: Ensure unzip utility
   tags: unzip
   package: 
     name: unzip
     state: present
-
+  become: yes
 
 - name: Stop linux service
   tags: service
