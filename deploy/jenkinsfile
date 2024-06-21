@@ -35,10 +35,11 @@ parameters {
             steps {
                 script {
                     def hosts = [
-                        [group: 'tooling', ip: '172.31.14.173', user: 'ec2-user'],
-                        [group: 'tooling', ip: '172.31.10.76', user: 'ec2-user'],
-                        [group: 'nginx', ip: '172.31.35.181', user: 'ubuntu'],
-                        [group: 'db', ip: '172.31.35.249', user: 'ubuntu']
+                        // [group: 'tooling', ip: '172.31.14.173', user: 'ec2-user'],
+                        // [group: 'tooling', ip: '172.31.10.76', user: 'ec2-user'],
+                        // [group: 'nginx', ip: '172.31.35.181', user: 'ubuntu'],
+                        // [group: 'db', ip: '172.31.35.249', user: 'ubuntu'],
+                        [group: 'artifact', ip: '172.31.36.231', user: 'ubuntu']
                     ]
                     for (host in hosts) {
                         sshagent(['private-key']) {
@@ -59,6 +60,7 @@ parameters {
                         installation: 'ansible',
                         inventory: "${WORKSPACE}/${inventory}",
                         playbook: "${WORKSPACE}/playbooks/site.yml"
+                        tags: "${params.ansible_tags}"
                     )
                 }
             }
