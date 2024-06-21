@@ -14,18 +14,23 @@
       tags:
         - always
 
-- name: dbserver assignment
-  ansible.builtin.import_playbook: ../static-assignments/db-server.yml
-  tags:
-    - db
+# - name: dbserver assignment
+#   ansible.builtin.import_playbook: ../static-assignments/db-server.yml
+#   tags:
+#     - db
 
-- name: Webservers Tasks
-  ansible.builtin.import_playbook: ../static-assignments/uat-webservers.yml
-  tags:
-    - webserver
+# - name: Webservers Tasks
+#   ansible.builtin.import_playbook: ../static-assignments/uat-webservers.yml
+#   tags:
+#     - webserver
 
-- name: Load balancer Tasks
-  ansible.builtin.import_playbook: ../static-assignments/loadbalancers.yml
-  when: load_balancer_is_required
+# - name: Load balancer Tasks
+#   ansible.builtin.import_playbook: ../static-assignments/loadbalancers.yml
+#   when: load_balancer_is_required
+#   tags:
+#     - loadbalancer
+
+- name: JFrog Artifactory
+  ansible.builtin.import_playbook: ../static-assignments/artifact.yml
   tags:
-    - loadbalancer
+    - artifactory
