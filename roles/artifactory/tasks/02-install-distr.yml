@@ -30,6 +30,20 @@
 #   retries: 3
 #   become: yes
 
+- name: Download Artifactory
+  get_url:
+    url: "https://jfrog.com/artifactory-oss-7.3.2.tar.gz"
+    dest: "/opt/jfrog/"
+    mode: '0644'
+  become: yes
+
+- name: Extract Artifactory
+  unarchive:
+    src: "/opt/jfrog/artifactory-oss-7.3.2.tar.gz"
+    dest: "/opt/jfrog/"
+    creates: "/opt/jfrog/artifactory-oss-7.3.2"
+  become: yes
+
 - name: Make Artifactory home link
   tags: distr
   file:
