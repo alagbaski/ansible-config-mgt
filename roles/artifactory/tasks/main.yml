@@ -9,8 +9,8 @@
 - name: Configure Artifactory
   include_tasks: 03-configure-distr.yml
 
-# - name: Install databse driver
-#   include: 04-install-db-driver.yml
+- name: Install databse driver
+  include_tasks: 04-install-db-driver.yml
 
 - name: Set up Artifactory as linux service
   include_tasks: 05-install-service.yml
