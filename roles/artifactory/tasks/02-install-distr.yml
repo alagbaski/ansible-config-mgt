@@ -69,3 +69,4 @@
     line: "ARTIFACTORY_HOME={{ artifactory_home }}"
     create: yes
   become: yes
+
