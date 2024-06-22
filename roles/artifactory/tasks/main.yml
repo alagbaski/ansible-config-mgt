@@ -18,7 +18,7 @@
 - name: Update apt cache
   ansible.builtin.apt:
     update_cache: yes
-    upgrade_cache: yes
+    upgrade: dists
   become: yes
 
 - name: Add JFrog GPG key
