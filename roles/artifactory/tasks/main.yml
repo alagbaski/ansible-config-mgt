@@ -1,16 +1,60 @@
 ---
 
-- name: Sound-check
-  include_tasks: 01-pre-requisites.yml
+# - name: Sound-check
+#   include_tasks: 01-pre-requisites.yml
 
-- name: Install Artifactory distr
-  include_tasks: 02-install-distr.yml
+# - name: Install Artifactory distr
+#   include_tasks: 02-install-distr.yml
 
-- name: Configure Artifactory
-  include_tasks: 03-configure-distr.yml
+# - name: Configure Artifactory
+#   include_tasks: 03-configure-distr.yml
 
-- name: Install databse driver
-  include_tasks: 04-install-db-driver.yml
+# - name: Install databse driver
+#   include_tasks: 04-install-db-driver.yml
 
-- name: Set up Artifactory as linux service
-  include_tasks: 05-install-service.yml
+# - name: Set up Artifactory as linux service
+#   include_tasks: 05-install-service.yml
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+  become: yes
+
+- name: Add JFrog GPG key
+  ansible.builtin.shell: |
+    curl -fsSL https://releases.jfrog.io/artifactory/api/gpg/key/public | gpg --dearmor -o /usr/share/keyrings/jfrog-public.gpg
+  become: yes
+
+- name: Add JFrog repository
+  ansible.builtin.shell: |
+    echo "deb [signed-by=/usr/share/keyrings/jfrog-public.gpg] https://releases.jfrog.io/artifactory/artifactory-debs xenial main" | tee /etc/apt/sources.list.d/artifactory.list
+  become: yes
+
+- name: Update apt cache after adding JFrog repository
+  ansible.builtin.apt:
+    update_cache: yes
+  become: yes
+
+- name: Install JFrog Artifactory OSS
+  ansible.builtin.apt:
+    name: jfrog-artifactory-oss
+    state: present
+  become: yes
+
+- name: Start Artifactory service
+  ansible.builtin.systemd:
+    name: artifactory
+    state: started
+  become: yes
+
+- name: Enable Artifactory service
+  ansible.builtin.systemd:
+    name: artifactory
+    enabled: yes
+  become: yes
+
+- name: Check status of Artifactory service
+  ansible.builtin.command:
+    cmd: systemctl status artifactory.service
+  become: yes
+  register: result
