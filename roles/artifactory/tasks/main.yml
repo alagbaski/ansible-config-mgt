@@ -58,3 +58,17 @@
     cmd: systemctl status artifactory.service
   become: yes
   register: result
+
+- name: Update allowNonPostgresql in system.yaml
+  ansible.builtin.lineinfile:
+    path: /var/opt/jfrog/artifactory/etc/system.yaml
+    regexp: '^#allowNonPostgresql: false'
+    line: 'allowNonPostgresql: true'
+    state: present
+  become: yes
+
+- name: Restart Artifactory service
+  ansible.builtin.systemd:
+    name: artifactory
+    state: restarted
+  become: yes
