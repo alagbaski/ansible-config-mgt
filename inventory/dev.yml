@@ -10,4 +10,4 @@
 # ansible_python_interpreter=/usr/bin/python
 
 [db]
-172.31.45.199 ansible_ssh_user=ubuntu
+172.31.43.79 ansible_ssh_user=ubuntu
