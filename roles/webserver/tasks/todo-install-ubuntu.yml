@@ -29,6 +29,13 @@
     update_cache: yes
   become: yes
 
+- name: Install necessary packages and add repositories
+  ansible.builtin.apt:
+    name: 
+      - unzip
+    state: present
+  become: yes
+
 - name: Install Apache2 on the webserver
   ansible.builtin.apt:
     name: apache2
@@ -69,7 +76,7 @@
 
 - name: Download the artifact
   ansible.builtin.get_url:
-    url: http://3.8.33.104:8082/artifactory/todo-php-repo/
+    url: http://3.8.33.104:8082/artifactory/todo-php-repo/php-todo.zip
     dest: /home/ubuntu/php-todo.zip
     url_username: admin
     url_password: Admin123
