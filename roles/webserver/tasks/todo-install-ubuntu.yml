@@ -1,0 +1,103 @@
+- name: Add universe repository
+  ansible.builtin.apt_repository:
+    repo: 'deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe'
+    state: present
+  become: yes
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+  become: yes
+
+- name: Install dependencies
+  ansible.builtin.apt:
+    name: 
+      - software-properties-common
+      - apt-transport-https
+      - ca-certificates
+    state: present
+  become: yes
+
+- name: Add PHP PPA
+  ansible.builtin.apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+  become: yes
+
+- name: Update apt cache after adding PHP PPA
+  ansible.builtin.apt:
+    update_cache: yes
+  become: yes
+
+- name: Install Apache2 on the webserver
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+  become: yes
+
+- name: Ensure Apache2 is started and enabled
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Install PHP and related modules
+  ansible.builtin.apt:
+    name:
+      - php7.4
+      - php7.4-mysql
+      - php7.4-gd
+      - php7.4-curl
+      - unzip
+      - php7.4-common
+      - php7.4-mbstring
+      - php7.4-opcache
+      - php7.4-intl
+      - php7.4-xml
+      - php7.4-fpm
+      - php7.4-json
+    state: present
+  become: yes
+
+- name: Ensure php7.4-fpm is started and enabled
+  ansible.builtin.service:
+    name: php7.4-fpm
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Download the artifact
+  ansible.builtin.get_url:
+    url: http://3.8.33.104:8082/artifactory/todo-php-repo/php-todo/php-todo.zip
+    dest: /home/ubuntu/php-todo.zip
+    url_username: admin
+    url_password: Admin123
+  become: yes
+
+- name: Unzip the artifacts
+  ansible.builtin.unarchive:
+    src: /home/ubuntu/php-todo.zip
+    dest: /home/ubuntu/
+    remote_src: yes
+  become: yes
+
+- name: Deploy the code
+  ansible.builtin.copy:
+    src: /home/ubuntu/php-todo/
+    dest: /var/www/html/
+    force: yes
+    remote_src: yes
+  become: yes
+
+- name: Remove Apache2 default page
+  ansible.builtin.file:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+  become: yes
+
+- name: Restart Apache2
+  ansible.builtin.service:
+    name: apache2
+    state: restarted
+  become: yes
