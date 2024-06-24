@@ -59,3 +59,19 @@
     cmd: systemctl status artifactory.service
   become: yes
   register: result
+
+- name: Update allowNonPostgresql setting in system.yaml
+  lineinfile:
+    path: /var/opt/jfrog/artifactory/etc/system.yaml
+    regexp: '^(\s*)allowNonPostgresql:'
+    owner: artifactory
+    group: artifactory
+    insertafter: '^database:'
+    line: '    allowNonPostgresql: true'
+  become: yes
+
+- name: Restart JFrog Artifactory service
+  service:
+    name: artifactory
+    state: restarted
+  become: yes
