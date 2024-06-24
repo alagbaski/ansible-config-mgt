@@ -69,7 +69,7 @@
 
 - name: Download the artifact
   ansible.builtin.get_url:
-    url: http://3.8.33.104:8082/artifactory/todo-php-repo/php-todo/php-todo.zip
+    url: http://3.8.33.104:8082/artifactory/todo-php-repo/
     dest: /home/ubuntu/php-todo.zip
     url_username: admin
     url_password: Admin123
