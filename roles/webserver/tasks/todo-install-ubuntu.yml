@@ -29,14 +29,6 @@
     update_cache: yes
   become: yes
 
-- name: Install necessary packages and add repositories
-  ansible.builtin.apt:
-    name: 
-      - unzip
-      - bzip2
-    state: present
-  become: yes
-
 - name: Install Apache2 on the webserver
   ansible.builtin.apt:
     name: apache2
@@ -88,6 +80,11 @@
     src: /home/ubuntu/php-todo.zip
     dest: /home/ubuntu/
     remote_src: yes
+  become: yes
+
+- name: Run chmod on /var/www/html
+  ansible.builtin.command:
+    cmd: sudo chown -R $USER:$USER /var/www/html
   become: yes
 
 - name: Deploy the code
