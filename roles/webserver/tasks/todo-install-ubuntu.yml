@@ -1,8 +1,8 @@
-- name: Add universe repository
-  ansible.builtin.apt_repository:
-    repo: 'deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe'
-    state: present
-  become: yes
+# - name: Add universe repository
+#   ansible.builtin.apt_repository:
+#     repo: 'deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe'
+#     state: present
+#   become: yes
 
 - name: Update apt cache
   ansible.builtin.apt:
