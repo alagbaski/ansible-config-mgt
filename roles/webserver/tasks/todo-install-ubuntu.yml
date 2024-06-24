@@ -33,6 +33,7 @@
   ansible.builtin.apt:
     name: 
       - unzip
+      - bzip2
     state: present
   become: yes
 
