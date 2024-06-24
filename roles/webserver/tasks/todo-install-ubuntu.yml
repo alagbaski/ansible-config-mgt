@@ -89,7 +89,7 @@
 
 - name: Deploy the code
   ansible.builtin.copy:
-    src: /home/ubuntu/php-todo_main/var/lib/jenkins/workspace/php-todo_main/*
+    src: /home/ubuntu/var/lib/jenkins/workspace/php-todo_main/*
     dest: /var/www/html/
     force: yes
     remote_src: yes
