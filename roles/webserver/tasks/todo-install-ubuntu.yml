@@ -29,14 +29,6 @@
     update_cache: yes
   become: yes
 
-- name: Install necessary packages and add repositories
-  ansible.builtin.apt:
-    name: 
-      - unzip
-      - bzip2
-    state: present
-  become: yes
-
 - name: Install Apache2 on the webserver
   ansible.builtin.apt:
     name: apache2
@@ -77,7 +69,7 @@
 
 - name: Download the artifact
   ansible.builtin.get_url:
-    url: http://3.8.33.104:8082/artifactory/todo-php-repo/php-todo.zip
+    url: http://13.40.193.95:8082/artifactory/todo-php-repo/php-todo.zip
     dest: /home/ubuntu/php-todo.zip
     url_username: admin
     url_password: Admin123
@@ -90,12 +82,29 @@
     remote_src: yes
   become: yes
 
+- name: Run chmod on /var/www/html
+  ansible.builtin.command:
+    cmd: sudo chown -R $USER:$USER /var/www/html
+  become: yes
+
 - name: Deploy the code
   ansible.builtin.copy:
-    src: /home/ubuntu/var/
+    src: /home/ubuntu/php-todo_main/var/lib/jenkins/workspace/php-todo_main/*
     dest: /var/www/html/
     force: yes
     remote_src: yes
+  become: yes
+
+- name: Delete the zip file after unzipping
+  ansible.builtin.file:
+    path: /home/ubuntu/php-todo.zip
+    state: absent
+  become: yes
+
+- name: Delete the unzipped files after copying
+  ansible.builtin.file:
+    path: /home/ubuntu/var/
+    state: absent
   become: yes
 
 - name: Remove Apache2 default page
