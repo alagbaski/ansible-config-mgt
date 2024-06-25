@@ -36,13 +36,14 @@
   become: yes
 
 - name: Ensure Apache2 is started and enabled
+  become: yes
   ansible.builtin.service:
     name: apache2
     state: started
     enabled: yes
-  become: yes
 
 - name: Install PHP and related modules
+  become: yes
   ansible.builtin.apt:
     name:
       - php7.4
@@ -58,63 +59,65 @@
       - php7.4-fpm
       - php7.4-json
     state: present
-  become: yes
 
 - name: Ensure php7.4-fpm is started and enabled
+  become: yes
   ansible.builtin.service:
     name: php7.4-fpm
     state: started
     enabled: yes
-  become: yes
 
 - name: Download the artifact
+  become: yes
   ansible.builtin.get_url:
-    url: http://13.40.193.95:8082/artifactory/todo-php-repo/php-todo.zip
+    url: http://35.176.137.126:8082/artifactory/todo-php-repo/php-todo.zip
     dest: /home/ubuntu/php-todo.zip
     url_username: admin
     url_password: Admin123
-  become: yes
 
 - name: Unzip the artifacts
+  become: yes
   ansible.builtin.unarchive:
     src: /home/ubuntu/php-todo.zip
     dest: /home/ubuntu/
     remote_src: yes
-  become: yes
 
 - name: Run chmod on /var/www/html
+  become: yes
+  remote_user: ubuntu
   ansible.builtin.command:
     cmd: sudo chown -R $USER:$USER /var/www/html
-  become: yes
 
 - name: Deploy the code
+  remote_user: ubuntu
+  become: yes
   ansible.builtin.copy:
     src: /home/ubuntu/var/lib/jenkins/workspace/php-todo_main/
     dest: /var/www/html/
     force: yes
     remote_src: yes
-  become: yes
 
 - name: Delete the zip file after unzipping
+  become: yes
   ansible.builtin.file:
     path: /home/ubuntu/php-todo.zip
     state: absent
-  become: yes
 
 - name: Delete the unzipped files after copying
+  become: yes
   ansible.builtin.file:
     path: /home/ubuntu/var/
     state: absent
-  become: yes
 
 - name: Remove Apache2 default page
+  remote_user: ubuntu
+  become: yes
   ansible.builtin.file:
     path: /etc/apache2/sites-enabled/000-default.conf
     state: absent
-  become: yes
 
 - name: Restart Apache2
+  become: yes
   ansible.builtin.service:
     name: apache2
     state: restarted
-  become: yes
