@@ -12,33 +12,29 @@
 - name: Install EPEL release
   remote_user: ec2-user
   become: true
-  ansible.builtin.yum:
-    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-    state: present
+  ansible.builtin.command:
+    cmd: sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
 
 # Install dnf-utils and Remi repository
 - name: Install dnf-utils and Remi repository
   remote_user: ec2-user
   become: true
-  ansible.builtin.yum:
-    name:
-      - dnf-utils
-      - http://rpms.remirepo.net/enterprise/remi-release-9.rpm
-    state: present
+  ansible.builtin.command:
+    cmd: sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-9.rpm -y
 
 # Reset PHP module
 - name: Reset PHP module
   remote_user: ec2-user
   become: true
   ansible.builtin.command:
-    cmd: dnf module reset php -y
+    cmd: sudo dnf module install php:remi-7.4 -y
 
 # Enable PHP 7.4 module
 - name: Enable PHP 7.4 module
   remote_user: ec2-user
   become: true
   ansible.builtin.command:
-    cmd: dnf module enable php:remi-7.4 -y
+    cmd: sudo dnf module enable php:remi-7.4 -y
 
 # Install PHP and extensions
 - name: Install PHP and extensions
