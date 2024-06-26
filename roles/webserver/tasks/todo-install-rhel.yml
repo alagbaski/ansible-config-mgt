@@ -88,7 +88,7 @@
   remote_user: ec2-user
   become: true
   ansible.builtin.get_url:
-    url: http://13.42.10.206:8082/artifactory/todo-php-repo/php-todo.zip
+    url: http://18.134.134.41:8082/artifactory/todo-php-repo/php-todo.zip
     dest: /home/ec2-user/php-todo.zip
     url_username: admin
     url_password: Admin123
@@ -140,7 +140,7 @@
 # Delete the unzipped files after copying
 - name: Delete the unzipped files after copying
   ansible.builtin.file:
-    path: /home/ec2-user/php-todo/
+    path: /home/ec2-user/var/
     state: absent
   become: true
 
